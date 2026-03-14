@@ -308,7 +308,7 @@ h2 {
 .final-actions {
   max-width: 780px;
   margin: 0 auto;
-  min-height: 112px;
+  min-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -432,7 +432,9 @@ h2 {
   }
 
   #finalNo {
-    position: static;
+    /* Đảm bảo vẫn là absolute để script có thể di chuyển vị trí */
+    position: absolute;
+    right: auto;
   }
 
   .final-actions {

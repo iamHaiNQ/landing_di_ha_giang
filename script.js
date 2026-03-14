@@ -1,10 +1,7 @@
 const countdownEl = document.getElementById("countdown");
 const thinkBtn = document.getElementById("thinkBtn");
-const noWayBtn = document.getElementById("noWayBtn");
-const modal = document.getElementById("pleadModal");
-const closeModal = document.getElementById("closeModal");
-const agreeAfterPlead = document.getElementById("agreeAfterPlead");
 const finalNo = document.getElementById("finalNo");
+const finalYes = document.getElementById("finalYes");
 const finalArea = document.getElementById("finalArea");
 const finalMessage = document.getElementById("finalMessage");
 const yesButtons = document.querySelectorAll(".js-yes");
@@ -132,21 +129,6 @@ yesButtons.forEach((btn) => {
 });
 
 
-noWayBtn?.addEventListener("click", () => {
-  modal?.classList.add("show");
-  modal?.setAttribute("aria-hidden", "false");
-});
-
-closeModal?.addEventListener("click", () => {
-  modal?.classList.remove("show");
-  modal?.setAttribute("aria-hidden", "true");
-});
-
-agreeAfterPlead?.addEventListener("click", () => {
-  modal?.classList.remove("show");
-  modal?.setAttribute("aria-hidden", "true");
-  celebrate("Mình biết mà, bạn sẽ đồng ý thôi.");
-});
 
 function moveNoButton() {
   if (!finalNo || !finalArea) {
@@ -159,8 +141,41 @@ function moveNoButton() {
   const maxX = containerRect.width - btnRect.width - 12;
   const maxY = containerRect.height - btnRect.height - 12;
 
-  const nextX = Math.max(8, Math.floor(Math.random() * Math.max(16, maxX)));
-  const nextY = Math.max(8, Math.floor(Math.random() * Math.max(16, maxY)));
+  let nextX, nextY;
+  let overlap = true;
+  let attempts = 0;
+
+  // Lấy vị trí nút Yes để tránh đè lên
+  const yesRect = finalYes ? finalYes.getBoundingClientRect() : null;
+  const containerOffset = finalArea.getBoundingClientRect();
+
+  while (overlap && attempts < 20) {
+    nextX = Math.max(8, Math.floor(Math.random() * Math.max(16, maxX)));
+    nextY = Math.max(8, Math.floor(Math.random() * Math.max(16, maxY)));
+
+    if (!yesRect) {
+      overlap = false;
+      break;
+    }
+
+    // Tính toán vị trí tương đối của Yes trong container
+    const relativeYesX = yesRect.left - containerOffset.left;
+    const relativeYesY = yesRect.top - containerOffset.top;
+
+    // Kiểm tra xem vị trí mới có đè lên nút Yes không (có padding an toàn)
+    const padding = 10;
+    const isOverlapping = !(
+      nextX + btnRect.width + padding < relativeYesX ||
+      nextX > relativeYesX + yesRect.width + padding ||
+      nextY + btnRect.height + padding < relativeYesY ||
+      nextY > relativeYesY + yesRect.height + padding
+    );
+
+    if (!isOverlapping) {
+      overlap = false;
+    }
+    attempts++;
+  }
 
   finalNo.style.left = `${nextX}px`;
   finalNo.style.top = `${nextY}px`;
@@ -186,6 +201,12 @@ finalNo?.addEventListener("click", (event) => {
   if (escapedTimes >= 10) {
     sendNotification("Cố gắng từ chối", `Người dùng đã cố nhấn nút Không ${escapedTimes} lần nhưng không thành công.`);
   }
+});
+
+// Thêm touchstart để bắt ngay khi chạm trên điện thoại
+finalNo?.addEventListener("touchstart", (event) => {
+  event.preventDefault();
+  moveNoButton();
 });
 
 
@@ -239,9 +260,4 @@ function toggleMusic() {
 
 musicToggle?.addEventListener("click", toggleMusic);
 
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && modal?.classList.contains("show")) {
-    modal.classList.remove("show");
-    modal.setAttribute("aria-hidden", "true");
-  }
-});
+
