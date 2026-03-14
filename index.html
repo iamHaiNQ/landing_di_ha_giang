@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đi Hà Giang với mình nhé?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="ambient-shape shape-a"></div>
+  <div class="ambient-shape shape-b"></div>
+  <div class="ambient-shape shape-c"></div>
+
+  <header class="topbar">
+    <div class="brand">Đi Hà Giang với mình nhé?</div>
+    <button id="musicToggle" class="btn btn-soft" type="button" aria-label="Bật nhạc nền">Bật nhạc chill</button>
+  </header>
+
+  <main>
+    <section id="hero" class="section hero">
+      <div class="hero-bg hero-bg-a"></div>
+      <div class="hero-bg hero-bg-b"></div>
+      <div class="hero-bg hero-bg-c"></div>
+      <div class="overlay"></div>
+      <div class="hero-content reveal">
+        <p class="eyebrow">Lời đề nghị cấp độ nghiêm túc</p>
+        <h1>Mình có một lời đề nghị rất nghiêm túc...</h1>
+        <p class="subtitle">Đi Hà Giang với mình nhé?</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary js-yes" type="button">OK mình đi</button>
+          <button class="btn btn-secondary" id="thinkBtn" type="button">Để suy nghĩ</button>
+        </div>
+      </div>
+      <div class="countdown reveal" id="countdownBox" aria-live="polite">
+        <p>Đếm ngược ngày xuất phát</p>
+        <h3 id="countdown">Đang tính...</h3>
+      </div>
+    </section>
+
+    <section id="reasons" class="section reasons">
+      <div class="section-heading reveal">
+        <h2>3 lý do bạn không thể từ chối</h2>
+      </div>
+      <div class="card-grid">
+        <article class="card reveal">
+          <h3>Cảnh đẹp</h3>
+          <p>Mình muốn cùng bạn đứng trên Đèo Mã Pì Lèng nhìn xuống Sông Nho Quế.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Ảnh đẹp</h3>
+          <p>Đi về có ngay 100 tấm ảnh sống ảo, tha hồ đăng Story cả tuần.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Kỷ niệm</h3>
+          <p>Vì thanh xuân không chờ chúng ta, và mình thì không muốn bỏ lỡ bạn.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="itinerary" class="section itinerary">
+      <div class="section-heading reveal">
+        <h2>Lịch trình mini 3 ngày 2 đêm</h2>
+      </div>
+      <div class="itinerary-wrap">
+        <div class="timeline reveal">
+          <div class="day">
+            <h3>Ngày 1</h3>
+            <p>Hà Nội -> Hà Giang -> Đồng Văn</p>
+          </div>
+          <div class="day">
+            <h3>Ngày 2</h3>
+            <p>Đồng Văn -> Đèo Mã Pì Lèng -> Sông Nho Quế</p>
+          </div>
+          <div class="day">
+            <h3>Ngày 3</h3>
+            <p>Cột cờ Lũng Cú -> về.</p>
+          </div>
+        </div>
+        <div class="route-map reveal" aria-label="Map hanh trinh Ha Giang">
+          <h3>Map hành trình Hà Giang</h3>
+          <div class="map-canvas">
+            <img src="bafab62e92ffc4843d960c913f79cba9.png" alt="Map hành trình Hà Giang" class="itinerary-map-img reveal">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section gallery">
+      <div class="section-heading reveal">
+        <h2>Gallery chill chill</h2>
+        <p>Preview trước để thấy chuyến này không thể bỏ lỡ.</p>
+      </div>
+      <div class="gallery-grid">
+        <img class="reveal"
+          src="f9792f7e-dia-diem-du-lich-ha-giang-6.jpg"
+          alt="Đèo Mã Pì Lèng" loading="lazy" />
+        <img class="reveal"
+          src="du-lich-ma-pi-leng-vnexpress-9-1570583182.webp"
+          alt="Sông Nho Quế" loading="lazy" />
+        <img class="reveal"
+          src="e17bf167-dia-diem-du-lich-ha-giang-1.jpg"
+          alt="Cột cờ Lũng Cú" loading="lazy" />
+        <img class="reveal"
+          src="7fd09e89-dia-diem-du-lich-ha-giang-20.jpg"
+          alt="Cảnh đẹp Hà Giang 1" loading="lazy" />
+        <img class="reveal"
+          src="22d13336-dia-diem-du-lich-ha-giang-13.jpg"
+          alt="Cảnh đẹp Hà Giang 2" loading="lazy" />
+        <img class="reveal"
+          src="932ccfe0-dia-diem-du-lich-ha-giang-4.jpg"
+          alt="Cảnh đẹp Hà Giang 3" loading="lazy" />
+      </div>
+    </section>
+
+    <section id="plead" class="section plead">
+      <div class="section-heading reveal">
+        <h2>Nếu bạn vẫn chưa đồng ý...</h2>
+      </div>
+      <div class="plead-box reveal">
+        <button id="noWayBtn" class="btn btn-secondary" type="button">Không đi đâu</button>
+      </div>
+    </section>
+
+    <section id="final" class="section final">
+      <div class="section-heading reveal">
+        <h2>Vậy chốt nhé?</h2>
+      </div>
+      <div class="final-actions reveal" id="finalArea">
+        <button class="btn btn-primary js-yes" id="finalYes" type="button">OK mình đi Hà Giang</button>
+        <button class="btn btn-secondary" id="finalNo" type="button">Không</button>
+      </div>
+      <p id="finalMessage" class="final-message" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <div id="pleadModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+      <p>Mình năn nỉ đó...</p>
+      <button id="agreeAfterPlead" class="btn btn-primary" type="button">Thôi được rồi đi</button>
+      <button id="closeModal" class="btn btn-soft" type="button">Để mình xem tiếp</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic" loop preload="none">
+    <source
+      src="https://cdn.pixabay.com/download/audio/2023/06/12/audio_b8f4264df7.mp3?filename=relaxing-meditation-145038.mp3"
+      type="audio/mpeg" />
+  </audio>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
