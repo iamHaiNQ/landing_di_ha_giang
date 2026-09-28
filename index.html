@@ -4,133 +4,578 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đi Hà Giang với mình nhé?</title>
+  <title>Khám Phá Hà Giang 3N2Đ - Cung Đường Huyền Thoại & Bản Đồ Tương Tác</title>
+  <meta name="description"
+    content="Tổng hợp ảnh đẹp các địa điểm du lịch Hà Giang: Đèo Mã Pí Lèng, Sông Nho Quế, Cột cờ Lũng Cú, Dinh Vua Mèo, Dốc Thẩm Mã cùng bản đồ lịch trình chi tiết 3 ngày 2 đêm thực tế." />
+
+  <!-- Google Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
     rel="stylesheet" />
+
+  <!-- Leaflet CSS for Interactive Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <div class="ambient-shape shape-a"></div>
-  <div class="ambient-shape shape-b"></div>
-  <div class="ambient-shape shape-c"></div>
+  <!-- ==========================================================================
+       Top Navigation Bar
+       ========================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-container">
+      <a href="#hero" class="brand-link" aria-label="Trang chủ Hà Giang">
+        <div class="brand-logo-icon">🏔️</div>
+        <div>
+          <span class="brand-title">Hà Giang Wanderlust</span>
+          <span class="brand-tag">Hành trình 3N2Đ cùng nhau</span>
+        </div>
+      </a>
 
-  <header class="topbar">
-    <div class="brand">Đi Hà Giang với mình nhé?</div>
-    <button id="musicToggle" class="btn btn-soft" type="button" aria-label="Bật nhạc nền">Bật nhạc chill</button>
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#mapSection">🗺️ Bản Đồ Cung Đường</a></li>
+          <li><a href="#itinerarySection">📋 Lịch Trình 3N2Đ</a></li>
+          <li><a href="#gallerySection">📸 Điểm Đến & Ảnh Đẹp</a></li>
+          <li><a href="#cuisineSection">🍜 Ẩm Thực Vùng Cao</a></li>
+          <li><a href="#rsvpSection">❤️ Chốt Kèo Đi Ngay</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="musicToggle" class="btn-pill btn-music" type="button" aria-label="Bật hoặc tắt nhạc nền chill">
+          <span id="musicIcon">🎵</span>
+          <span id="musicText">Bật nhạc chill</span>
+        </button>
+        <a href="#rsvpSection" class="btn-pill btn-cta-nav">Đi thôi! 🎒</a>
+        <button id="navToggle" class="nav-toggle" type="button" aria-label="Mở menu điều hướng">☰</button>
+      </div>
+    </div>
   </header>
 
   <main>
-    <section id="hero" class="section hero">
-      <div class="hero-bg hero-bg-a"></div>
-      <div class="hero-bg hero-bg-b"></div>
-      <div class="hero-bg hero-bg-c"></div>
-      <div class="hero-bg hero-bg-d"></div>
-      <div class="overlay"></div>
-      <div class="hero-content reveal">
-        <p class="eyebrow">Lời đề nghị cấp độ nghiêm túc</p>
-        <h1>Mình có một lời đề nghị rất nghiêm túc...</h1>
-        <p class="subtitle">Đi Hà Giang với mình nhé?</p>
-        <div class="hero-cta">
-          <button class="btn btn-primary js-yes" type="button">OK mình đi</button>
-          <button class="btn btn-secondary" id="thinkBtn" type="button">Để suy nghĩ</button>
-        </div>
+    <!-- ==========================================================================
+         Hero Section with LCP Priority Image & Departure Countdown
+         ========================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="hero-background-wrapper" aria-hidden="true">
+        <!-- LCP Image with fetchpriority="high" as per modern web guidelines -->
+        <img src="assets/images/hero-banner.png" alt="Hà Giang Karst Landscape" class="hero-bg-slide active"
+          fetchpriority="high" id="heroBgImage" />
       </div>
-      <div class="countdown reveal" id="countdownBox" aria-live="polite">
-        <p>Đếm ngược ngày xuất phát</p>
-        <h3 id="countdown">Đang tính...</h3>
-      </div>
-    </section>
+      <div class="hero-overlay"></div>
 
-    <section id="reasons" class="section reasons">
-      <div class="section-heading reveal">
-        <h2>3 lý do bạn không thể từ chối</h2>
-      </div>
-      <div class="card-grid">
-        <article class="card reveal">
-          <h3>Cảnh đẹp</h3>
-          <p>Mình muốn cùng bạn đứng trên Đèo Mã Pì Lèng nhìn xuống Sông Nho Quế.</p>
-        </article>
-        <article class="card reveal">
-          <h3>Ảnh đẹp</h3>
-          <p>Đi về có ngay 100 tấm ảnh sống ảo, tha hồ đăng Story cả tuần.</p>
-        </article>
-        <article class="card reveal">
-          <h3>Kỷ niệm</h3>
-          <p>Vì thanh xuân không chờ chúng ta, và mình thì không muốn bỏ lỡ bạn.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="itinerary" class="section itinerary">
-      <div class="section-heading reveal">
-        <h2>Lịch trình mini 3 ngày 2 đêm</h2>
-      </div>
-      <div class="itinerary-wrap">
-        <div class="timeline reveal">
-          <div class="day">
-            <h3>Ngày 1</h3>
-            <p>Hà Nội -> Hà Giang -> Đồng Văn</p>
-          </div>
-          <div class="day">
-            <h3>Ngày 2</h3>
-            <p>Đồng Văn -> Đèo Mã Pì Lèng -> Sông Nho Quế</p>
-          </div>
-          <div class="day">
-            <h3>Ngày 3</h3>
-            <p>Cột cờ Lũng Cú -> về.</p>
-          </div>
+      <div class="hero-content">
+        <div class="badge-tag">
+          <span>✨</span> Cung Đường Hạnh Phúc • Cao Nguyên Đá Đồng Văn
         </div>
-        <div class="route-map reveal" aria-label="Map hanh trinh Ha Giang">
-          <h3>Map hành trình Hà Giang</h3>
-          <div class="map-canvas">
-            <img src="bafab62e92ffc4843d960c913f79cba9.png" alt="Map hành trình Hà Giang"
-              class="itinerary-map-img reveal">
+
+        <h1 class="hero-title">
+          Chinh Phục <span class="highlight">Hà Giang 3 Ngày 2 Đêm</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Khám phá 440km đèo mây uốn lượn, đứng trên đỉnh Mã Pí Lèng nhìn xuống dòng sông Nho Quế ngọc bích, chạm tay
+          vào Cột cờ Lũng Cú và lắng nghe tiếng khèn Mông giữa thung lũng đá tai mèo.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#mapSection" class="btn-lg btn-primary">
+            <span>🗺️</span> Khám Phá Bản Đồ Hành Trình
+          </a>
+          <a href="#itinerarySection" class="btn-lg btn-secondary">
+            <span>📋</span> Xem Lịch Trình Chi Tiết
+          </a>
+          <button class="btn-lg btn-emerald js-scroll-rsvp" type="button">
+            <span>❤️</span> Đi Cùng Mình Nhé!
+          </button>
+        </div>
+
+        <!-- Floating Stats & Countdown Ribbon -->
+        <div class="hero-ribbon">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value highlight-orange">440<span style="font-size: 1rem">km</span></div>
+              <div class="stat-label">Tổng chiều dài vòng cung</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value highlight-emerald">1.550<span style="font-size: 1rem">m</span></div>
+              <div class="stat-label">Độ cao đỉnh đèo Mã Pí Lèng</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value highlight-gold">15+</div>
+              <div class="stat-label">Điểm check-in tuyệt đẹp</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value highlight-purple">3N2Đ</div>
+              <div class="stat-label">Thời gian vàng khám phá</div>
+            </div>
+          </div>
+
+          <div class="hero-countdown-box">
+            <div class="countdown-heading">⏳ Đếm Ngược Ngày Đi</div>
+            <div class="countdown-digits" id="countdown">Đang tính toán...</div>
           </div>
         </div>
+
+        <!-- Weather Conditions Strip across Key Districts -->
+        <div class="weather-strip" id="weatherStrip" aria-label="Thời tiết Hà Giang hôm nay">
+          <div class="weather-box">
+            <span class="weather-icon">🌤️</span>
+            <div class="weather-info">
+              <span class="weather-place">TP Hà Giang</span>
+              <span class="weather-temp">24°C</span>
+              <span class="weather-condition">Nắng nhẹ, trời trong</span>
+            </div>
+          </div>
+          <div class="weather-box">
+            <span class="weather-icon">⛅</span>
+            <div class="weather-info">
+              <span class="weather-place">Quản Bạ</span>
+              <span class="weather-temp">20°C</span>
+              <span class="weather-condition">Săn mây Cổng Trời</span>
+            </div>
+          </div>
+          <div class="weather-box">
+            <span class="weather-icon">⛰️</span>
+            <div class="weather-info">
+              <span class="weather-place">Đồng Văn</span>
+              <span class="weather-temp">17°C</span>
+              <span class="weather-condition">Se lạnh, sương mờ</span>
+            </div>
+          </div>
+          <div class="weather-box">
+            <span class="weather-icon">🌿</span>
+            <div class="weather-info">
+              <span class="weather-place">Mã Pí Lèng</span>
+              <span class="weather-temp">19°C</span>
+              <span class="weather-condition">Trời quang, gió mát</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="gallery" class="section gallery">
-      <div class="section-heading reveal">
-        <h2>Gallery chill chill</h2>
-        <p>Preview trước để thấy chuyến này không thể bỏ lỡ.</p>
-      </div>
-      <div class="gallery-grid">
-        <img class="reveal" src="f9792f7e-dia-diem-du-lich-ha-giang-6.jpg" alt="Đèo Mã Pì Lèng" loading="lazy" />
-        <img class="reveal" src="du-lich-ma-pi-leng-vnexpress-9-1570583182.webp" alt="Sông Nho Quế" loading="lazy" />
-        <img class="reveal" src="e17bf167-dia-diem-du-lich-ha-giang-1.jpg" alt="Cột cờ Lũng Cú" loading="lazy" />
-        <img class="reveal" src="7fd09e89-dia-diem-du-lich-ha-giang-20.jpg" alt="Cảnh đẹp Hà Giang 1" loading="lazy" />
-        <img class="reveal" src="22d13336-dia-diem-du-lich-ha-giang-13.jpg" alt="Cảnh đẹp Hà Giang 2" loading="lazy" />
-        <img class="reveal" src="932ccfe0-dia-diem-du-lich-ha-giang-4.jpg" alt="Cảnh đẹp Hà Giang 3" loading="lazy" />
+    <!-- ==========================================================================
+         Interactive Map Section (Vẽ Bản Đồ Lịch Trình 3 Ngày)
+         ========================================================================== -->
+    <section id="mapSection" class="section map-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Bản Đồ Cung Đường QL4C</span>
+          <h2 class="section-title">Bản Đồ Lịch Trình 3N2Đ Chi Tiết</h2>
+          <p class="section-desc">
+            Tuyến đường thực tế uốn lượn qua các con đèo hùng vĩ nhất Đông Bắc. Nhấp vào từng chặng hoặc từng điểm dừng
+            để xem ảnh thực tế, độ cao và chỉ đường.
+          </p>
+        </div>
+
+        <!-- Map Filter & Tools Bar -->
+        <div class="map-control-bar">
+          <div class="map-filter-group" id="mapDayFilters">
+            <button class="map-tab-btn active" data-day="all" type="button">
+              <span>🌟</span> Toàn Cung Đường (440km)
+            </button>
+            <button class="map-tab-btn tab-d1" data-day="1" type="button">
+              <span style="color: var(--color-day1)">●</span> Ngày 1: TP Hà Giang ➔ Đồng Văn (168km)
+            </button>
+            <button class="map-tab-btn tab-d2" data-day="2" type="button">
+              <span style="color: var(--color-day2)">●</span> Ngày 2: Đồng Văn ➔ Lũng Cú ➔ Mèo Vạc (89km)
+            </button>
+            <button class="map-tab-btn tab-d3" data-day="3" type="button">
+              <span style="color: var(--color-day3)">●</span> Ngày 3: Mèo Vạc ➔ Cua M ➔ TP Hà Giang (188km)
+            </button>
+          </div>
+
+          <div class="map-tools-group">
+            <button id="btnSimulateRoute" class="btn-tool" type="button" title="Mô phỏng hành trình xe máy">
+              <span id="simIcon">▶</span> <span id="simText">Mô phỏng xe chạy 🛵</span>
+            </button>
+            <button id="btnRecenterMap" class="btn-tool" type="button" title="Căn giữa toàn bộ cung đường">
+              <span>🎯</span> Toàn cảnh
+            </button>
+            <button id="btnToggleGraphicMap" class="btn-tool" type="button" title="Chuyển chế độ xem bản đồ">
+              <span id="graphicMapIcon">🖼️</span> <span id="graphicMapText">Xem ảnh bản đồ</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Simulation Live Ticker Banner -->
+        <div id="simStatusBanner" class="sim-status-banner">
+          <div>
+            <strong>🛵 Đang di chuyển:</strong> <span id="simCurrentStop">Đang chuẩn bị xuất phát...</span>
+          </div>
+          <div>
+            <span id="simProgress">Điểm 1 / 15</span> • <button id="btnStopSim" type="button" style="color: #f87171; text-decoration: underline; font-size: 0.82rem; cursor: pointer;">Dừng mô phỏng</button>
+          </div>
+        </div>
+
+        <!-- Map Main Display Layout -->
+        <div class="map-display-layout">
+          <div class="map-viewport">
+            <div id="leafletMap" aria-label="Bản đồ tương tác Hà Giang"></div>
+            <!-- Static Illustrated Graphic Map Overlay Option -->
+            <div id="staticMapView" class="static-map-view">
+              <img src="assets/images/map-static.png" alt="Bản đồ đồ họa cung đường Hà Giang 3N2Đ" loading="lazy" />
+            </div>
+          </div>
+
+          <!-- Waypoints Interactive Rail -->
+          <aside class="map-waypoints-rail">
+            <div class="rail-header">
+              <h4>
+                <span>Toạ Độ Dừng Chân</span>
+                <span id="railCountBadge"
+                  style="font-size: 0.8rem; background: rgba(249, 115, 22, 0.2); color: var(--accent-orange); padding: 2px 8px; border-radius: 99px;">15
+                  điểm</span>
+              </h4>
+              <p id="railSubtext">Nhấp vào điểm để di chuyển bản đồ</p>
+            </div>
+            <div class="rail-list" id="railList">
+              <!-- Dynamically populated by script.js -->
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
 
+    <!-- ==========================================================================
+         Detailed 3-Day Itinerary Section
+         ========================================================================== -->
+    <section id="itinerarySection" class="section itinerary-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Kế Hoạch Di Chuyển Thực Tế</span>
+          <h2 class="section-title">Lịch Trình Chi Tiết Từng Ngày</h2>
+          <p class="section-desc">
+            Lịch trình được tối ưu hoá theo giờ ánh sáng đẹp nhất, khoảng cách chạy xe an toàn và các điểm ăn uống ngon
+            nức tiếng của người bản địa.
+          </p>
+          <div style="margin-top: 0.8rem;">
+            <button id="btnPrintItinerary" class="btn-tool" type="button" style="background: rgba(255, 255, 255, 0.08); color: #fff; padding: 0.5rem 1.1rem; border-radius: 99px;">
+              <span>🖨️</span> Tải / In Lịch Trình Offline (PDF)
+            </button>
+          </div>
+        </div>
 
-    <section id="final" class="section final">
-      <div class="section-heading reveal">
-        <h2>Vậy chốt nhé?</h2>
+        <!-- Day Selector Tabs -->
+        <div class="day-tabs" id="itineraryDayTabs">
+          <button class="day-tab-btn active" data-itin-day="1" type="button">
+            <span>🚩</span> Ngày 1: Cửa Ngõ & Cao Nguyên Đá
+          </button>
+          <button class="day-tab-btn btn-tab-d2" data-itin-day="2" type="button">
+            <span>🚩</span> Ngày 2: Cực Bắc & Tứ Đại Đỉnh Đèo
+          </button>
+          <button class="day-tab-btn btn-tab-d3" data-itin-day="3" type="button">
+            <span>🚩</span> Ngày 3: Cua Chữ M & Trở Về
+          </button>
+        </div>
+
+        <!-- Day Overview Banner -->
+        <div class="day-overview-card" id="dayOverviewCard">
+          <!-- Dynamically populated by script.js -->
+        </div>
+
+        <!-- Timeline Stream of Activities -->
+        <div class="timeline-stream" id="timelineStream">
+          <!-- Dynamically populated by script.js -->
+        </div>
       </div>
-      <div class="final-actions reveal" id="finalArea">
-        <button class="btn btn-primary js-yes" id="finalYes" type="button">OK mình đi Hà Giang</button>
-        <button class="btn btn-secondary" id="finalNo" type="button">Không</button>
+    </section>
+
+    <!-- ==========================================================================
+         Destinations & Photo Gallery Showcase
+         ========================================================================== -->
+    <section id="gallerySection" class="section gallery-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Bộ Sưu Tập Danh Thắng</span>
+          <h2 class="section-title">Các Điểm Đẹp & Ảnh Chụp Hà Giang</h2>
+          <p class="section-desc">
+            Tổng hợp ảnh đẹp chất lượng cao tại các tọa độ nổi tiếng nhất. Nhấp vào bất kỳ ảnh nào để phóng to hoặc xem
+            vị trí trên bản đồ.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="gallery-filters" id="galleryFilters">
+          <button class="filter-pill active" data-category="all" type="button">Tất Cả 15 Điểm</button>
+          <button class="filter-pill" data-category="pass" type="button">⛰️ Đèo & Dốc Uốn Lượn</button>
+          <button class="filter-pill" data-category="nature" type="button">🌊 Sông Núi & Cảnh Quan</button>
+          <button class="filter-pill" data-category="culture" type="button">🏛️ Bản Làng & Di Tích Cổ</button>
+        </div>
+
+        <!-- Destinations Cards Grid -->
+        <div class="destinations-grid" id="destinationsGrid">
+          <!-- Dynamically populated by script.js -->
+        </div>
       </div>
-      <p id="finalMessage" class="final-message" aria-live="polite"></p>
+    </section>
+
+    <!-- ==========================================================================
+         Local Cuisine & Travel Secrets Section
+         ========================================================================== -->
+    <section id="cuisineSection" class="section cuisine-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Hương Vị Vùng Cao</span>
+          <h2 class="section-title">Ẩm Thực Phải Thử & Cẩm Nang Bỏ Túi</h2>
+          <p class="section-desc">
+            Đừng chỉ đi ngắm cảnh, hãy để những hương vị nồng ấm của thắng cố, cháo ấu tẩu và rượu ngô men lá làm say lòng
+            bạn.
+          </p>
+        </div>
+
+        <!-- Cuisine Grid -->
+        <div class="cuisine-grid" id="cuisineGrid">
+          <!-- Dynamically populated by script.js -->
+        </div>
+
+        <!-- Travel Tips & Checklist Cards -->
+        <div class="tips-grid">
+          <div class="tip-card">
+            <div class="tip-card-header">
+              <span class="tip-icon">🛵</span>
+              <h4>Kinh Nghiệm Thuê Xe Máy</h4>
+            </div>
+            <p>
+              Nên thuê xe số (Wave Alpha, Blade, Sirius) thay vì xe ga để leo đèo an toàn bằng số 2-3 và hãm động cơ khi
+              đổ đèo. Nhớ kiểm tra kỹ phanh trước/sau, lốp xe và đèn pha.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-card-header">
+              <span class="tip-icon">🌸</span>
+              <h4>Thời Điểm Đi Đẹp Nhất</h4>
+            </div>
+            <p>
+              Tháng 10 - 12: Mùa hoa tam giác mạch và cúc cam rực rỡ.<br>
+              Tháng 1 - 2: Mùa hoa đào, hoa mận, hoa lê nở trắng sườn núi.<br>
+              Tháng 9: Mùa lúa chín vàng óng trên ruộng bậc thang.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-card-header">
+              <span class="tip-icon">🎒</span>
+              <h4>Hành Lý Cần Chuẩn Bị</h4>
+            </div>
+            <p>
+              Áo khoác gió ấm (buổi tối trên cao nguyên nhiệt độ giảm mạnh ~12-16°C), áo mưa bộ 2 mảnh, sạc dự phòng, tiền
+              mặt (nhiều bản làng chưa có ATM), thuốc tiêu hóa và thuốc say xe.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-card-header">
+              <span class="tip-icon">⛽</span>
+              <h4>Trạm Xăng & Cung Đường</h4>
+            </div>
+            <p>
+              Luôn đổ đầy bình xăng tại các thị trấn lớn (TP Hà Giang, Tam Sơn Quản Bạ, Yên Minh, Đồng Văn, Mèo Vạc) vì
+              các đoạn đường đèo dài 30-40km thường không có cây xăng.
+            </p>
+          </div>
+        </div>
+
+        <!-- Interactive Packing Checklist Component -->
+        <div class="checklist-wrapper" id="packingChecklistWrapper">
+          <div class="checklist-header">
+            <div>
+              <h3 style="font-size: 1.3rem; margin: 0; color: #fff;">🎒 Checklist Hành Lý Đi Phượt Hà Giang</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0.2rem 0 0;">Đánh dấu các món đồ bạn đã chuẩn bị (tự động lưu vào trình duyệt)</p>
+            </div>
+            <div id="checklistProgressText" style="font-weight: 700; color: var(--accent-orange); font-size: 0.9rem;">
+              Đã sẵn sàng 0/16 món (0%)
+            </div>
+          </div>
+          <div class="checklist-progress-bar">
+            <div class="checklist-progress-fill" id="checklistProgressFill"></div>
+          </div>
+          <div class="checklist-columns" id="checklistColumns">
+            <!-- Dynamically populated by script.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Interactive Budget Estimator (Dự Toán Chi Phí 3N2Đ)
+         ========================================================================== -->
+    <section id="budgetSection" class="section budget-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Tính Toán Chi Phí Tự Động</span>
+          <h2 class="section-title">Dự Toán Chi Phí Chuyến Đi 3N2Đ</h2>
+          <p class="section-desc">
+            Ước tính ngân sách chi tiết dựa trên số lượng người đi, phương tiện di chuyển, phong cách lưu trú và trải nghiệm bạn mong muốn.
+          </p>
+        </div>
+
+        <div class="budget-calculator-card">
+          <div class="calc-inputs-group">
+            <div class="calc-field">
+              <label for="calcPeople">👥 Số Lượng Người Đi:</label>
+              <select id="calcPeople" class="calc-select">
+                <option value="1">1 người (Đi solo trải nghiệm)</option>
+                <option value="2" selected>2 người (Cặp đôi / Bạn thân)</option>
+                <option value="4">4 người (Nhóm nhỏ 2 xe máy)</option>
+                <option value="6">6 người (Nhóm bạn đông vui)</option>
+              </select>
+            </div>
+
+            <div class="calc-field">
+              <label>🛵 Phương Tiện Di Chuyển:</label>
+              <div class="calc-options-pills" id="calcTransportOptions">
+                <button type="button" class="calc-pill-opt active" data-transport="bus-bike">Xe giường nằm + Thuê xe máy</button>
+                <button type="button" class="calc-pill-opt" data-transport="motorbike-self">Tự phượt xe máy từ Hà Nội</button>
+                <button type="button" class="calc-pill-opt" data-transport="car-rental">Xe ô tô tự lái / Tour trọn gói</button>
+              </div>
+            </div>
+
+            <div class="calc-field">
+              <label>🏡 Hạng Phòng Lưu Trú (2 Đêm):</label>
+              <div class="calc-options-pills" id="calcStayOptions">
+                <button type="button" class="calc-pill-opt active" data-stay="homestay">Homestay bản địa (Pả Vi / Đồng Văn)</button>
+                <button type="button" class="calc-pill-opt" data-stay="hotel">Khách sạn tiêu chuẩn 3 sao</button>
+                <button type="button" class="calc-pill-opt" data-stay="resort">Resort sinh thái nghỉ dưỡng</button>
+              </div>
+            </div>
+
+            <div class="calc-field">
+              <label>🍜 Phong Cách Ẩm Thực (3 Ngày):</label>
+              <div class="calc-options-pills" id="calcFoodOptions">
+                <button type="button" class="calc-pill-opt" data-food="economy">Tiết kiệm (200k/ngày)</button>
+                <button type="button" class="calc-pill-opt active" data-food="standard">Tiêu chuẩn no say (350k/ngày)</button>
+                <button type="button" class="calc-pill-opt" data-food="deluxe">Thả ga đặc sản lẩu gà đen (550k/ngày)</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="budget-result-card">
+            <span class="budget-total-label">Tổng Chi Phí Dự Tính</span>
+            <div class="budget-total-price" id="calcTotalPrice">2.450.000đ</div>
+            <div class="budget-total-per" id="calcPerPerson">~ 2.450.000đ / người (cho 3N2Đ trọn vẹn)</div>
+
+            <ul class="budget-breakdown-list" id="calcBreakdown">
+              <li><span>🚌 Vé xe & Thuê xe:</span> <strong id="bdTransport">850.000đ/người</strong></li>
+              <li><span>🏡 Phòng nghỉ 2 đêm:</span> <strong id="bdStay">400.000đ/người</strong></li>
+              <li><span>🍲 Ăn uống 3 ngày:</span> <strong id="bdFood">1.050.000đ/người</strong></li>
+              <li><span>🎟️ Vé tham quan & Thuyền:</span> <strong id="bdTickets">150.000đ/người</strong></li>
+            </ul>
+
+            <button class="btn-lg btn-primary js-scroll-rsvp" type="button" style="width: 100%; justify-content: center; font-size: 0.95rem;">
+              <span>🎒</span> Đi Kèo Này Ngay!
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         Playful Invitation & RSVP Section (Đi Với Mình Nhé?)
+         ========================================================================== -->
+    <section id="rsvpSection" class="rsvp-section">
+      <div class="rsvp-container">
+        <span class="rsvp-badge">Lời Đề Nghị Cấp Độ Nghiêm Túc</span>
+        <h2 class="rsvp-title">Đi Hà Giang Với Mình Nhé?</h2>
+        <p class="rsvp-subtitle">
+          Thanh xuân thì có hạn, mà vẻ đẹp hùng vĩ của Cao nguyên đá thì đang chờ chúng ta. Bạn chỉ cần gật đầu, mọi thứ
+          còn lại để mình lo!
+        </p>
+
+        <div class="rsvp-actions" id="rsvpArea">
+          <button id="btnYes" class="btn-lg btn-primary js-yes" type="button">
+            <span>❤️</span> OK Mình Đi Hà Giang!
+          </button>
+          <button id="btnNo" class="btn-lg btn-secondary" type="button">
+            Không
+          </button>
+        </div>
+
+        <p id="rsvpMessage" class="rsvp-message" aria-live="polite"></p>
+      </div>
     </section>
   </main>
 
+  <!-- ==========================================================================
+       Fullscreen Image Lightbox Modal
+       ========================================================================== -->
+  <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to">
+    <div class="lightbox-content">
+      <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Đóng ảnh">&times;</button>
+      <button id="lightboxPrev" class="lightbox-nav lightbox-prev" type="button"
+        aria-label="Ảnh trước">&#10094;</button>
+      <img id="lightboxImg" class="lightbox-img" src="" alt="Ảnh phóng to Hà Giang" />
+      <button id="lightboxNext" class="lightbox-nav lightbox-next" type="button" aria-label="Ảnh sau">&#10095;</button>
 
-  <audio id="bgMusic" loop preload="none">
-    <source
-      src="https://cdn.pixabay.com/download/audio/2023/06/12/audio_b8f4264df7.mp3?filename=relaxing-meditation-145038.mp3"
-      type="audio/mpeg" />
-  </audio>
+      <div class="lightbox-caption">
+        <div id="lightboxTitle" class="lightbox-title">Tên Địa Điểm</div>
+        <div id="lightboxSub" class="lightbox-sub">Hà Giang, Việt Nam</div>
+      </div>
+    </div>
+  </div>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <!-- ==========================================================================
+       Site Footer
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-link">
+          <div class="brand-logo-icon">🏔️</div>
+          <span class="brand-title">Hà Giang Wanderlust</span>
+        </div>
+        <p>
+          Cẩm nang du lịch và bản đồ tương tác cung đường Hà Giang 3N2Đ. Lưu giữ trọn vẹn những khoảnh khắc đẹp nhất nơi
+          địa đầu Tổ quốc.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Cung Đường Chính</h5>
+        <ul>
+          <li><a href="#itinerarySection">Ngày 1: Hà Giang - Đồng Văn</a></li>
+          <li><a href="#itinerarySection">Ngày 2: Lũng Cú - Mã Pí Lèng</a></li>
+          <li><a href="#itinerarySection">Ngày 3: Mèo Vạc - Hà Giang</a></li>
+          <li><a href="#gallerySection">Danh thắng nổi bật</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Số Điện Thoại Cần Biết</h5>
+        <ul>
+          <li><span style="color: var(--accent-orange)">Cứu hộ xe máy:</span> 0988.466.046</li>
+          <li><span style="color: var(--accent-orange)">BV Đồng Văn:</span> 0219.3856.115</li>
+          <li><span style="color: var(--accent-orange)">Công an Hà Giang:</span> 069.2429.113</li>
+          <li><span style="color: var(--accent-orange)">Bến thuyền Nho Quế:</span> 0964.482.484</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Hà Giang Wanderlust. Cùng nhau đi hết thanh xuân.</div>
+      <div>Designed with ❤️ for Hà Giang lovers</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Leaflet JS for Map -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Confetti Celebration -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- Project Data & Main Logic -->
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 
